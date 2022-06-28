@@ -1,0 +1,289 @@
+/* :root{
+    --text-color: #F5FBEF;
+    --bg-color: #262529;
+    --btn-bg-color: #fff;
+    --btn-color: #000;
+    --next-btn-bg-color: #18bdd6;
+    --table-color-1: #000;
+    --table-bg-color-1: #fff;
+    --table-color-2: #fff;
+    --table-bg-color-2: #262529;
+    --table-bg-color-top:#080710;
+    --table-color-top:#fff;
+    --start-btn-bg-color-1: #fff;
+    --start-btn-bg-color-2: rgb(128, 128, 128);
+    --settings-bg-color: rgb(128, 128, 128);
+    --button-bg-color: #000;
+    --button-color: #fff;
+    --input-color: #000;
+    --input-bg-color: #fff;
+    --start-btn-color: #000;
+    
+    --webkit-scrollbar-thumb-bg: #888;
+    --code-block-bg: #F0F0F0;
+    --code-block-box-shadow: #0000009c;
+    --code-block-color: #000;
+    --next-btn-box-shadow:rgb(0 0 0 / 15%);
+    --btn-box-shadow:rgb(0 0 0 / 15%);
+    --start-btn-box-shadow:rgb(0 0 0 / 15%);
+
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap');
+html, body{
+    font-family: "Poppins", Helvetica, Arial, sans-serif;
+	color:var(--text-color);
+    background:var(--bg-color);
+}
+*{
+    margin:0;
+    padding: 0;
+}
+hr{
+    border-radius: 20px;
+    height: 2px;
+    background: var(--text-color);
+    border: none;
+    width: 60%;
+    margin: auto;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--webkit-scrollbar-thumb-bg);
+    border-radius: 40px;
+}
+::-webkit-scrollbar-track {
+    display: none;
+}
+::-webkit-scrollbar-track-piece{
+    background: unset;
+}
+.btns{
+    text-align:center;
+}
+#code-block{
+    display: inline-block !important;
+    padding: 20px !important;
+    background: var(--code-block-bg) !important;
+    border-radius: 10px;
+    width: 70%;
+    text-align: left;
+    box-shadow: 0px 0px 20px var(--code-block-box-shadow);
+    font-size: 20px !important;
+    height: 300px;
+    overflow: scroll;
+    color:var(--code-block-color);
+	font-size:100% !important; 
+}
+#container{
+    border-radius: 10px;
+}
+.btn{
+    border: none;
+    background: transparent;
+    background: var(--btn-bg-color);
+    border-radius: 100px;
+    outline: none;
+    font-weight: 800;
+    height: 65px;
+    width: 153px;
+    -webkit-box-shadow: 0px 10px 20px 0px var(--btn-box-shadow);
+    box-shadow: 0px 10px 20px 0px var(--btn-box-shadow);
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+    color:var(--btn-color);
+}
+#next-btn{
+    border: none;
+    background: transparent;
+    border-radius: 100px;
+    outline: none;
+    font-weight: 800;
+    height: 65px;
+    width: 153px;
+    -webkit-box-shadow: 0px 10px 20px 0px var(--next-btn-box-shadow);
+    box-shadow: 0px 10px 20px 0px var(--next-btn-box-shadow);
+    transition: 0.3s ease-in-out;
+    background: var(--next-btn-bg-color);
+    text-align: center;
+}
+.btn-correct{
+    border: none;
+    background: transparent;
+    background: white;
+    border-radius: 100px;
+    width: 153px;
+    outline: none;
+    font-weight: 800;
+    height: 65px;
+    -webkit-box-shadow: 0px 10px 20px 0px rgb(0 0 0 / 15%);
+    box-shadow: 0px 10px 20px 0px rgb(0 0 0 / 15%);
+
+
+    background: linear-gradient(119.32deg, #7BFF2A 16.26%, rgba(255, 255, 255, 0) 67.98%), #59EB00;
+    box-shadow: 0px 1px 20px rgb(99 255 105 / 70%);
+}
+.btn-fail{
+    border: none;
+    background: transparent;
+    background: white;
+    border-radius: 100px;
+    width: 153px;
+    outline: none;
+    font-weight: 800;
+    height: 65px;
+    -webkit-box-shadow: 0px 10px 20px 0px rgb(0 0 0 / 15%);
+    box-shadow: 0px 10px 20px 0px rgb(0 0 0 / 15%);
+    background: linear-gradient(109.45deg, #FF7373 -7.86%, rgba(255, 255, 255, 0) 79.2%), #FF4949;
+    box-shadow: 0px 1px 20px #ff7b7b;
+}
+#points{
+    font-size: 90px;
+}
+
+#results{
+    text-align:left !important
+}
+@media only screen and (max-width: 635px) {
+    .btns button{
+        width: 90%;
+        top:95%;
+    }
+    .btns{
+        top:106%;
+    }
+    .code-block{
+        top:60%;
+    }
+    #next-btn{
+        left:50%;
+        top:99%;
+    }
+
+}
+
+#reset-container{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#rankings{
+    font-size: 20px;
+}
+table, td, th {
+    border: 1px solid;
+    text-align: center;
+  }
+tr:nth-child(odd){
+    background: var(--table-bg-color-1);
+    color:var(--table-color-1);
+}
+tr:nth-child(even){
+    background: var(--table-bg-color-2);
+    color:var(--table-color-2);
+}
+
+th{
+    background: var(--table-bg-color-top);
+    color:var(--table-color-top);
+}
+  
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.stat-btn{
+    border: none;
+    background: transparent;
+    border-radius: 100px;
+    outline: none;
+    font-weight: 800;
+    height: 65px;
+    width: 153px;
+    -webkit-box-shadow: 0px 10px 20px 0px var(--start-btn-box-shadow);
+    box-shadow: 0px 10px 20px 0px var(--start-btn-box-shadow);
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+    color:var(--start-btn-color);
+    background:linear-gradient(90deg, var(--start-btn-bg-color-1) 0%, var(--start-btn-bg-color-1) 50%, var(--start-btn-bg-color-2) 51%);
+}
+.stat-btn span{
+    font-size: 28px;
+}
+.stat-btn span:nth-child(2){
+    float: left;
+    position: relative;
+    left: -1%;
+    top: 2%;
+    width: 50%;
+    height: 100%;
+    background: none;
+    display: grid;
+    place-items: center;
+}
+.stat-btn span:nth-child(1){
+    float: left;
+    position: relative;
+    left: 1%;
+    top: 2%;
+    width: 50%;
+    height: 100%;
+    background: none;
+    display: grid;
+    place-items: center;
+}
+/**************************************************/
+#settings{
+    display: none;
+    position: absolute;
+    background: var(--settings-bg-color);
+    padding: 20px;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    z-index: 1000;
+    animation: overlay-anim 0.4s;
+    width: 80%;
+}
+#settings textarea, #settings input, #settings select{
+    width: 80%;
+}
+#overlay{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    animation: overlay-anim 0.4s
+}
+@keyframes overlay-anim {
+	from { opacity:0}
+	to {opacity:1}
+	
+}
+input, textarea, select{
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    background: var(--input-bg-color);
+    color: var(--input-color);
+    padding: 10px;
+    margin: 10px;
+    width: 250px;
+    font-size:20px;
+}
+button{
+    border: none;
+    font-size:20px;
+    outline: none;
+    border-radius: 5px;
+    background: var(--button-bg-color);
+    color: var(--button-color);
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    cursor: pointer;
+}

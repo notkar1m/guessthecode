@@ -1,0 +1,116 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+    <script src="https://kit.fontawesome.com/383a3bf828.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/png" href="/static/images/logo.png?r={{r}}" sizes="16x16">
+    <link rel="icon" type="image/png" href="/static/images/logo.png?r={{r}}" sizes="32x32">
+    <link rel="icon" type="image/png" href="/static/images/logo.png?r={{r}}" sizes="96x96">    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/a11y-light.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script>hljs.highlightAll()</script>
+    <style>
+        :root{
+            {{theme}}
+        }
+    </style>
+    <link rel="stylesheet" href="/static/styles/index.css?r={{r}}">
+
+    <script>
+        window.addEventListener("load", () => {
+            var username = localStorage.getItem("username")
+            var pw = localStorage.getItem("pw")
+            if(username && pw){
+                document.getElementById("login-username").value = username
+                document.getElementById("login-pw").value = pw
+            }
+        })
+        function saveCreds(val, key){
+            console.log(val, key)
+            localStorage.setItem(key, val)
+        }
+    </script>
+
+    <title>Guess The Code</title>
+</head>
+<body>
+    {%with messages = get_flashed_messages(with_categories=true)%}
+    {%if messages%}
+        {%for category, message in messages%}
+            {%if category == 'error'%}
+                <script>alertify.error('{{message}}')</script>
+            {%else%}
+                <script>alertify.success('{{message}}')</script>
+    {%endif%}{%endfor%}{%endif%}{%endwith%}
+    <h1 style="text-align:center">Guess The Code</h1>
+    <div id="container">
+        <div id="login" style="display:none;">
+            <h2>Login</h2>
+            <form action="/login" method="POST">
+                <input oninput="saveCreds(this.value, 'username')" id="login-username" type="text" name="username" placeholder="Username" required><br>
+                <input oninput="saveCreds(this.value, 'pw')" id="login-pw" type="password" name="pw" placeholder="Password" required><br>
+                <button type="submit">Login</button>
+            </form>
+        <a onclick="document.getElementById('login').style.display='none';document.getElementById('signup').style.display='block'">Sign up</a>
+        </div>
+        <div id="signup">
+            <h2>Create Account</h2>
+            <form action="/signup" method="POST">
+                <input autocomplete="off" type="email" name="email" placeholder="Email" required><br>
+                <input oninput="saveCreds(this.value, 'username')" autocomplete="off" type="text" name="username" placeholder="Username" required><br>
+                <input oninput="saveCreds(this.value, 'pw')" autocomplete="off" type="password" name="pw" placeholder="Password" required><br>
+                <button type="submit">Create Account</button>
+            </form>
+            <a onclick="document.getElementById('signup').style.display='none';document.getElementById('login').style.display='block'">Login</a>
+        </div>
+    </div>
+</body>
+</html>
+<style>
+    #container{
+        background-color: #F5FBEF;
+        color:black;
+        padding: 20px;
+        border-radius: 10px;
+        margin: auto;
+        width: fit-content;
+        text-align: center;
+        box-shadow: 0px 0px 20px 6px rgba(0, 0, 0, 0.537);
+        zoom:125%
+    }
+    input{
+        border-radius: 5px;
+        border: none;
+        background-color: #D9D9D9;
+        color: black;
+        padding: 5px;
+        margin: 5px;
+        width: fit-content;
+        font-size: 20px;
+        outline: none;
+    }
+    button{
+        border-radius: 5px;
+        border: none;
+        background-color: black;
+        color: #f5f5f5;
+        padding: 5px;
+        margin: 5px;
+        width: fit-content;
+        font-size: 20px;
+        outline: none;
+        cursor: pointer;
+    }
+    a{
+        cursor: pointer;
+        color: black;
+        font-size: 20px;
+    }
+</style>

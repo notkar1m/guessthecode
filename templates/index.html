@@ -1,0 +1,123 @@
+<html lang="en">
+<head>
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/383a3bf828.js" crossorigin="anonymous"></script>
+	
+    <link rel="icon" type="image/png" href="/static/images/logo.png?r={{r}}" sizes="16x16">
+    <link rel="icon" type="image/png" href="/static/images/logo.png?r={{r}}" sizes="32x32">
+    <link rel="icon" type="image/png" href="/static/images/logo.png?r={{r}}" sizes="96x96">	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8685860416864464" crossorigin="anonymous"></script>
+
+	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/a11y-light.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script>hljs.highlightAll()</script>
+    <script src="/static/scripts/index.js?r={{r}}"></script>
+    <style>
+        :root{
+            {{theme}}
+        }
+    </style>
+    <link rel="stylesheet" href="/static/styles/index.css?r={{r}}">
+    <title>Guess The Code</title>
+</head>
+<body style='text-align:center'>
+    {% with messages = get_flashed_messages(with_categories=true) %} 
+    {% if messages %} 
+        {% for category, message in messages %} 
+            {% if category == 'error' %}
+                <script>alertify.error('{{message}}');</script>
+            {% else %}
+                <script>alertify.success('{{message}}');</script>
+    {%endif%}{%endfor%}{%endif%}{%endwith%} 
+    <div id="overlay" onclick="this.style.display='none';document.getElementById('settings').style.display='none'"></div>
+    <div id="settings">
+        <h1>Settings</h1>
+        <center><h2 style="text-decoration:underline">Theme</h2></center>
+        <select id="theme" oninput="changeTheme(this.value)">
+            <option
+            {%if themeName == "black_and_white"%}
+                selected
+            {%endif%}
+            value="black_and_white">Black & White</option>
+            <option
+            {%if themeName == "vscode_dark"%}
+                selected
+            {%endif%}
+            value="vscode_dark">Vscode Dark</option>
+        </select>
+        <br><hr>
+        <center><h2 style="text-decoration:underline">Change Password</h2></center>
+        <form action="/change-pw" method="post">
+            <input required type="pw" name="old-pw" placeholder="Old password"><br>
+            <input required type="pw" name="new-pw" placeholder="New password"><br>
+            <button type="submit">Change Password</button>
+        </form>
+        <br><hr>
+        <button onclick="window.location.href='/logout'" style="background:#FF4949;"><i class="fas fa-sign-out-alt"></i></button>
+    </div>
+    <div id="statistics">
+        <h1>Guess The Code</h1>
+        <button class="stat-btn"><span onclick="show('game');hide('statistics')" style="float:left"><i class="fas fa-play"></i></span><span onclick="settings()" style="float:right"><i class="fas fa-cog"></i></span></button><br><br>
+        <table id="rankings">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Username</th>
+                        <th>Pts</th>
+                        <th>Games</th>
+                        <th>Best Streak</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{leaderboard.index(username)+1}}</td>
+                        <td>{{username}} (You)</td>
+                        <td>{{allData[username]['pts']}}</td>
+                        <td>{{allData[username]['games']}}</td>
+                        <td>{{allData[username]['best_streak']}}</td>    
+                    </tr>
+                    {% for player in leaderboard %}
+                        {%if player != username%}
+                            <tr>
+                                <td>{{leaderboard.index(player)+1}}</td>
+                                <td>{{player}}</td>
+                                <td>{{allData[player]['pts']}}</td>
+                                <td>{{allData[player]['games']}}</td>
+                                <td>{{allData[player]['best_streak']}}</td>    
+                            </tr>
+                            {%endif%}
+                    {% endfor %}
+                </tbody>
+        </table>
+    </div>
+
+    <div id="game" style="display: none;">
+            <div class="pannel">
+                <p id="points">0</p>
+                <button class="btn" onclick="show('statistics');hide('game')">Statistics</button>
+                <h3>Which programming language is this?</h3><br><br>
+            </div>
+            <div class="container"><pre><code id="code-block" class="language-python"></code></pre></div>
+
+            <div class="btns">
+                <button class="btn" id="0" onclick="checkLang(this.innerText,this.id)">Loading</button>
+                <button class="btn" id="1" onclick="checkLang(this.innerText,this.id)">Loading</button>
+                <button class="btn" id="2" onclick="checkLang(this.innerText,this.id)">Loading</button>
+                <button class="btn" id="3" onclick="checkLang(this.innerText,this.id)">Loading</button>
+                <div id="reset-container">
+                    <button style="display:none;" class="btn" id="next-btn" onclick="next()">Next</button>
+                </div>
+            </div>
+
+    </div>
+</body>
+</html>
